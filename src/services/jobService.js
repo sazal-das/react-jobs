@@ -13,6 +13,9 @@ export default {
   createJob(payload) {
     return axios.post(`${ROOT_URL}`, payload);
   },
+  updateJob(payload) {
+    return axios.put(`${ROOT_URL}/${payload.id}`, payload.data);
+  },
   deleteJob(jobId) {
     return axios.delete(`${ROOT_URL}/${jobId}`);
   },

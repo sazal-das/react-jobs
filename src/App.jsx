@@ -13,11 +13,18 @@ import JobPage from "./pages/JobsPage";
 import SingleJobPage, { jobLoader } from "./pages/SingleJobPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AddJobPage from "./pages/AddJobPage";
+import EditJobPage from "./pages/EditJobPage";
 
 const App = () => {
   // Add Job
   const createJob = (payload) => {
     jobService.createJob(payload);
+  };
+
+  // Update Job
+  const updateJob = (payload) => {
+    console.log(payload);
+    jobService.updateJob(payload);
   };
 
   // Delete Job
@@ -34,6 +41,11 @@ const App = () => {
         <Route
           path="/jobs/:id"
           element={<SingleJobPage deleteJob={deleteJob} />}
+          loader={jobLoader}
+        />
+        <Route
+          path="/edit-job/:id"
+          element={<EditJobPage updateJob={updateJob} />}
           loader={jobLoader}
         />
         <Route path="/add-job" element={<AddJobPage createJob={createJob} />} />
