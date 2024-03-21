@@ -1,9 +1,13 @@
+import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
 import JobDetails from "../components/JobDetails";
+import jobService from "../services/jobService";
 
 const SingleJobPage = () => {
+  const job = useLoaderData();
+
   return (
     <>
       <section>
@@ -16,9 +20,14 @@ const SingleJobPage = () => {
           </Link>
         </div>
       </section>
-      <JobDetails />
+      <JobDetails job={job} />
     </>
   );
 };
 
-export default SingleJobPage;
+const jobLoader = async ({ params }) => {
+  const { data } = await jobService.getJobById(params.id);
+  return data;
+};
+
+export { SingleJobPage as default, jobLoader };
