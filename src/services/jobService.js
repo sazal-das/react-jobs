@@ -10,4 +10,10 @@ export default {
   getJobById(jobId) {
     return axios.get(`${ROOT_URL}/${jobId}`);
   },
+  createJob(payload) {
+    return axios.post(`${ROOT_URL}`, payload);
+  },
+  deleteJob(jobId) {
+    return axios.delete(`${ROOT_URL}/${jobId}`);
+  },
 };

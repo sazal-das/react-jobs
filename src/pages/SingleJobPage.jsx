@@ -1,12 +1,17 @@
 import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 import JobDetails from "../components/JobDetails";
 import jobService from "../services/jobService";
 
-const SingleJobPage = () => {
+const SingleJobPage = ({ deleteJob }) => {
   const job = useLoaderData();
+
+  const handleDeleteJob = (id) => {
+    deleteJob(id);
+  };
 
   return (
     <>
@@ -20,9 +25,13 @@ const SingleJobPage = () => {
           </Link>
         </div>
       </section>
-      <JobDetails job={job} />
+      <JobDetails job={job} deleteJob={handleDeleteJob} />
     </>
   );
+};
+
+SingleJobPage.propTypes = {
+  deleteJob: PropTypes.func,
 };
 
 const jobLoader = async ({ params }) => {

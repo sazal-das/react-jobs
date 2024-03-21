@@ -1,7 +1,16 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { FaMapMarker } from "react-icons/fa";
+import { toast } from "react-toastify";
 
-const JobDetails = ({ job }) => {
+const JobDetails = ({ job, deleteJob }) => {
+  const navigate = useNavigate();
+  const handleDeleteJob = (id) => {
+    deleteJob(id);
+    toast.success("Job deleted");
+    navigate("/jobs");
+  };
+
   return (
     <section className="bg-indigo-50">
       <div className="container m-auto py-10 px-6">
@@ -63,7 +72,10 @@ const JobDetails = ({ job }) => {
               >
                 Edit Job
               </a>
-              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+              <button
+                onClick={() => handleDeleteJob(job.id)}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+              >
                 Delete Job
               </button>
             </div>
@@ -76,6 +88,7 @@ const JobDetails = ({ job }) => {
 
 JobDetails.propTypes = {
   job: PropTypes.object.isRequired,
+  deleteJob: PropTypes.func,
 };
 
 export default JobDetails;
